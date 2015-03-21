@@ -9,6 +9,7 @@ import android.graphics.RectF;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import static com.daimajia.numberprogressbar.NumberProgressBar.ProgressTextVisibility.Invisible;
@@ -18,6 +19,7 @@ import static com.daimajia.numberprogressbar.NumberProgressBar.ProgressTextVisib
  * Created by daimajia on 14-4-30.
  */
 public class NumberProgressBar extends View {
+    private String tag = "NumberProgressBar";
 
     private int mMaxProgress = 100;
 
@@ -280,18 +282,30 @@ public class NumberProgressBar extends View {
 
         mCurrentDrawText = String.format("%d", getProgress() * 100 / getMax());
         mCurrentDrawText = mPrefix + mCurrentDrawText + mSuffix;
+        Log.i(tag, "进度文案 mCurrentDrawText = "+mCurrentDrawText);
         mDrawTextWidth = mTextPaint.measureText(mCurrentDrawText);
+        Log.i(tag, "进度文案的宽度 mDrawTextWidth = "+mDrawTextWidth);
 
         if (getProgress() == 0) {
+            Log.i(tag, "getProgress() == 0");
             mDrawReachedBar = false;
             mDrawTextStart = getPaddingLeft();
+            Log.i(tag, "进度文案开始位置 mDrawTextStart = "+mDrawTextStart);
         } else {
+            Log.i(tag, "getProgress() = "+getProgress());
             mDrawReachedBar = true;
             mReachedRectF.left = getPaddingLeft();
             mReachedRectF.top = getHeight() / 2.0f - mReachedBarHeight / 2.0f;
+            Log.i(tag, "getHeight() = "+getHeight()+"mReachedBarHeight = "+mReachedBarHeight);
             mReachedRectF.right = (getWidth() - getPaddingLeft() - getPaddingRight()) / (getMax() * 1.0f) * getProgress() - mOffset + getPaddingLeft();
+            Log.i(tag, "getWidth() = "+getWidth()+"mOffset = "+mOffset);// TODO
             mReachedRectF.bottom = getHeight() / 2.0f + mReachedBarHeight / 2.0f;
             mDrawTextStart = (mReachedRectF.right + mOffset);
+            Log.i(tag, "mReachedRectF.left = "+mReachedRectF.left);
+            Log.i(tag, "mReachedRectF.top = "+mReachedRectF.top);
+            Log.i(tag, "mReachedRectF.right = "+mReachedRectF.right);
+            Log.i(tag, "mReachedRectF.bottom = "+mReachedRectF.bottom);
+            Log.i(tag, "进度文案开始位置 mDrawTextStart = "+mDrawTextStart);
         }
 
         mDrawTextEnd = (int) ((getHeight() / 2.0f) - ((mTextPaint.descent() + mTextPaint.ascent()) / 2.0f));

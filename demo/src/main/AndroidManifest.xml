@@ -7,7 +7,7 @@
         android:icon="@drawable/ic_launcher"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.daimajia.numberprogressbar.example.MainActivity"
+            android:name=".MainActivity"
             android:label="NumberProgressBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
